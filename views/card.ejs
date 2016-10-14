@@ -1,0 +1,23 @@
+<%- include('header') -%>
+<div class="row">
+  <div class="large-6 large-offset-3">
+    <h1>Add Card Sayings</h1>
+    <hr/>
+    <img src="/images/card-saying.png" style="height:200px;float:left; margin-right: 10px;" />
+    <p>Add some spice to the deck with some personal cards of your own.</p>
+    <p><i>As an example: Make fun of <%= order.groom %>'s lack of style or a habit of <%= order.bride %>'s that makes you laugh</i></p>
+    <br/>
+    <br/>
+    <hr/>
+    <form method='post' action="/card/<%= order._id %>">
+  	  <input type="text" name="saying" placeholder="add a saying...">
+  	  <input type="submit" value="Add" class="button" style="float:right">
+  	  <br><br>
+    </form>
+    <ul>
+      <% for(var i=0; i < order.sayings.length; i++) { %>
+       <li><%= order.sayings[i] %> <a href="/card/delete" class="button tiny">remove</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>

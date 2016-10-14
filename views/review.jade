@@ -1,0 +1,19 @@
+extends layout
+
+block content
+ h1=title
+ .row
+ .large-12.columns
+  form(method='post', action='/card', enctype="multipart/form-data")
+     .form-group
+      label Bride: 
+       input.form-control(name='saying', type='text' placeholder='Becky')
+      label Groom:
+       input.form-control(name='saying', type='text' placeholder='Will')
+      label Sayings:
+       ul
+        li Cut your hair
+        li move to mars
+       
+       input.btn.btn-default(name='add',type='submit',value='Update')
+  a(href="/order") Next Step

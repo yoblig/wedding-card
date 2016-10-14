@@ -1,41 +1,42 @@
-var express = require('express');
-var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+app.get('/', function(req, res, next){
+    res.render('index', { title: 'Cards Against Matrimony' })
 });
 
-router.get('/couple', function(req, res, next){
-    //spin up new order in db   
-   res.render('couple', {title: 'Enter Couple Names'}); 
+app.get('/couple', function(req, res, next){
+    console.log("coupleGet");
+    Order.find({})
+        .exec(function(err, orders){
+            if(err){
+                res.send("Error Occured");
+            }
+            else { 
+                console.log(orders);
+            }
+        });
+  res.render('couple', {title: 'Enter Couple Names'}); 
 });
 
-// router.post('/couple', function(req,res){
-//   // get the names
-//   // attach the names to the order
-   
-//   res.send('')
-// });
+app.post('/couple', function(req, res){
+    console.log('Couple Post Work');
+    var bride = req.body.bride;
+    var groom = req.body.groom;
+    console.log('this is bride:' + bride);
+    res.redirect('/card');   
+});
 
-router.get('/card', function(req, res, next) {
+app.get('/card', function(req, res, next) {
     res.render('card', {title:'Enter Your Personal Cards'});
 });
 
-router.get('/review', function(req, res, next) {
+app.get('/review', function(req, res, next) {
     res.render('review', {title: 'Review Your Order'});
 });
 
-router.get('/order', function(req, res, next) {
-    res.render('order', {title: 'Order'});
+app.get('/order', function(req, res, next) {
+    res.render('order', {title: 'Order & Pay'});
 });
 
-router.get('/confirm', function(req, res, next) {
+app.get('/confirm', function(req, res, next) {
     res.render('confirm', {title:'Order Has Been Placed'});
 });
-
-
-
-
-
-module.exports = router;
