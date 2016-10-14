@@ -91,7 +91,7 @@ app.get('/', function(req, res, next){
     });
 });
 
-// Couple Routes
+// Routes: Couple
 app.get('/couple', function(req, res, next){
     ejs.renderFile('./views/couple.ejs', {title:'Cash'},{}, function(err, str) {
         if(err) res.send(err);
@@ -117,7 +117,12 @@ app.post('/couple', function(req, res){
     });
     
 });
-// END Couple Routes
+
+// Routes: Card
+app.delete('/card/:id', function(req, res, next){
+  console.log('perform delete on saying');
+  res.send('moneybank');
+});
 
 app.get('/card/:id', function(req, res, next) {
   Order.findOne({_id: req.params.id}, function(err,order){
@@ -143,8 +148,19 @@ app.post('/card/:id', function(req, res, next){
   res.redirect('/card/' + req.params.id);
 });
 
-app.get('/review', function(req, res, next) {
-    res.render('review', {title: 'Review Your Order'});
+// Routes: Review
+app.get('/review/:id', function(req, res, next) {
+  Order.findOne({_id: req.params.id}, function(err,order){
+    if (err) return console.log(err);
+    else {
+      ejs.renderFile('./views/review.ejs', {order:order, title: "moneybank"}, {}, function(err, str){
+      if (err) console.log(err);
+      else {
+        res.send(str);
+      }
+    });
+    }
+  });
 });
 
 app.get('/order', function(req, res, next) {

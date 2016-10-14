@@ -9,15 +9,17 @@
     <br/>
     <br/>
     <hr/>
-    <form method='post' action="/card/<%= order._id %>">
+    <form method="post" action="/card/<%= order._id %>" >
   	  <input type="text" name="saying" placeholder="add a saying...">
-  	  <input type="submit" value="Add" class="button" style="float:right">
+  	  <input type="submit" value="+" class="button" style="float:right">
   	  <br><br>
     </form>
     <ul>
       <% for(var i=0; i < order.sayings.length; i++) { %>
-       <li><%= order.sayings[i] %> <a href="/card/delete" class="button tiny">remove</a></li>
+       <li><%= order.sayings[i] %></li>
       <% } %>
     </ul>
+    <hr />
+  	  <a href="/review/<%= order._id %>" class="button" style="float:right">Next</a>
   </div>
 </div>
