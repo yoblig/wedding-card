@@ -9,6 +9,7 @@ var compression = require("compression");
 var methodOverride = require("method-override");
 var ejs = require("ejs");
 var email = require("emailjs");
+var nodemailer = require("nodemailer");
 
 // Database - Overall
 // Models & Schema
@@ -163,39 +164,26 @@ app.get('/review/:id', function(req, res, next) {
   });
 });
 
-app.get('/order', function(req, res, next) {
+app.get('/order/:id', function(req, res, next) {
     res.render('order', {title: 'Order & Pay'});
     
-    // var server = email.server.connect({
-    //   "host" : "smtp.gmail.com",
-    //   "user" : "",
-    //   "password" : "!",
-    //   "ssl" : true,
-    //   "port" : 465
-    // });
-    
-    // server.send({
-    //   text:    "i hope this works", 
-    //   from:    "you <gilboyk@gmail.com>", 
-    //   to:      "someone <kevin_gilboy@yahoo.com>",
-    //   subject: "testing emailjs"
-    // }, function(err, message) { console.log(err || message); });
-    
-  //   var server 	= email.server.connect({
-  //   user:    "username", 
-  //   password:"password", 
-  //   host:    "smtp.your-email.com", 
-  //   ssl:     true
-  // });
+    var transporter = nodemailer.createTransport('smtps://gilboyk@gmail.com:Go2Hell!@smtp.gmail.com');
+    // var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
  
-  // // send the message and get a callback with an error or details of the message that was sent 
-  // server.send({
-  //   text:    "i hope this works", 
-  //   from:    "you <username@your-email.com>", 
-  //   to:      "someone <someone@your-email.com>, another <another@your-email.com>",
-  //   cc:      "else <else@your-email.com>",
-  //   subject: "testing emailjs"
-  // }, function(err, message) { console.log(err || message); });
+    // setup e-mail data with unicode symbols 
+    var mailOptions = {
+        from: '"Kev Gilboy" <gilboyk@gmail.com>', // sender address 
+        to: 'kevin_gilboy@yahoo.com', // list of receivers 
+        subject: 'Wedding Card Confirm', // Subject line 
+        text: 'You have cards coming your way', // plaintext body 
+        html: '<b>Get Money</b>' // html body 
+    };
+ 
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info) {
+       if(error) return console.log(error);
+       console.log('Message sent: ' + info.response);
+    });
 });
 
 app.get('/confirm', function(req, res, next) {
