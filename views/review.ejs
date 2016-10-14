@@ -3,11 +3,12 @@
   <div class="large-6 large-offset-3">
     <h1>Review Your Cards</h1>
     <hr/>
-    <img src="/images/card-review.png" style="height:200px;float:left; margin-right: 10px;" />
+    <img src="/images/card-review.png" style="height:200px;float:left; margin-right: 10px;margin-bottom: 50px;" />
     <p>Before we ship these off to print, take a look and maker sure everything is right.</p>
     <hr/>
     <h3>Bride: <%= order.bride %></h3>
     <h3>Groom: <%= order.groom %></h3>
+    <h4><i>Sayings:</i></h4>
     <ul>
       <% for(var i=0; i < order.sayings.length; i++) { %>
        <li><%= order.sayings[i] %></li>
